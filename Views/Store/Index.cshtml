@@ -1,0 +1,20 @@
+﻿@using SampleApplication.ViewModels
+@model ProductListViewModel
+
+@{
+}
+
+<div>
+    @if(Model.products is not null)
+    {
+        @foreach(Product product in Model.products)
+        {
+            <div style="background: @product.ProductImg; height:500px; width: auto"></div>
+            <ul>
+                <li>@product.ProductName</li>
+                <li>@product.ProductDescription</li>
+                <li>@product.ProductPrice</li>
+            </ul>
+        }
+    }
+</div>
