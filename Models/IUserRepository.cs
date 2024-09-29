@@ -1,9 +1,12 @@
-﻿namespace SampleApplication.Models
+﻿using SampleApplication.ViewModels;
+
+namespace SampleApplication.Models
 {
     public interface IUserRepository
     {
-        void Add(User user);
-        List<User>? GetAll();
-        User? Get(string id);
+        void Register(User user);
+        User Login(string userName, string email, string password);
+        List<User> GetAll();
+        User GetByEmailAndPass(string email, string pass);
     }
 }

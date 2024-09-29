@@ -1,0 +1,19 @@
+﻿@model ProductListViewModel
+
+<div>
+    @if(Model.products.Count > 0)
+    {
+        <h3 id="productsForUser"></h3>
+    }else
+    {
+        <h3>Add Your First Product</h3>
+        <button class="btn btn-primary">Product</button>
+    }
+</div>
+
+
+<script>
+    var productsForUser = document.getElementById("productsForUser");
+    var user = localStorage.getItem("UserName");
+    productsForUser.innerHTML = `${user} This is Your Products`;
+</script>

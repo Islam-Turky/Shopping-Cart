@@ -11,8 +11,8 @@ using SampleApplication.Models;
 namespace SampleApplication.Migrations
 {
     [DbContext(typeof(StoreDbContext))]
-    [Migration("20240924233850_AddShoppingCars")]
-    partial class AddShoppingCars
+    [Migration("20240928100148_Initial")]
+    partial class Initial
     {
         /// <inheritdoc />
         protected override void BuildTargetModel(ModelBuilder modelBuilder)
@@ -46,6 +46,9 @@ namespace SampleApplication.Migrations
                     b.Property<string>("PId")
                         .HasColumnType("nvarchar(450)");
 
+                    b.Property<int>("Amount")
+                        .HasColumnType("int");
+
                     b.Property<string>("ProductCategoryCategoryId")
                         .IsRequired()
                         .HasColumnType("nvarchar(450)");
@@ -66,9 +69,14 @@ namespace SampleApplication.Migrations
                         .IsRequired()
                         .HasColumnType("nvarchar(max)");
 
+                    b.Property<string>("UserId")
+                        .HasColumnType("nvarchar(450)");
+
                     b.HasKey("PId");
 
                     b.HasIndex("ProductCategoryCategoryId");
+
+                    b.HasIndex("UserId");
 
                     b.ToTable("products");
                 });
@@ -125,6 +133,10 @@ namespace SampleApplication.Migrations
                         .OnDelete(DeleteBehavior.Cascade)
                         .IsRequired();
 
+                    b.HasOne("SampleApplication.Models.User", null)
+                        .WithMany("Products")
+                        .HasForeignKey("UserId");
+
                     b.Navigation("ProductCategory");
                 });
 
@@ -145,6 +157,11 @@ namespace SampleApplication.Migrations
                     b.Navigation("Product");
 
                     b.Navigation("User");
+                });
+
+            modelBuilder.Entity("SampleApplication.Models.User", b =>
+                {
+                    b.Navigation("Products");
                 });
 #pragma warning restore 612, 618
         }

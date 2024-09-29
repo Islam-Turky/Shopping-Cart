@@ -1,0 +1,49 @@
+﻿@model User
+
+<div class="container d-flex justify-content-center align-items-center flex-column align-content-center" style="height: 70dvh">
+    <div class="container d-flex justify-content-center align-items-center flex-column align-content-center">
+        <div class="text-center text-info font-monospace" style="font-size: 20px; font-weight:bolder">Sign In</div>
+        <div asp-validation-summary="All" class="text-danger"></div>
+        <form asp-controller="User" asp-action="Login" onsubmit="onSubmitHandler()" class="d-flex flex-column justify-content-between align-items-center w-100 h-100 gap-3 p-5">
+            <div class="d-flex justify-content-between w-50">
+                <div style="flex: 1">
+                    <label asp-for="UserName" for="UName" class="text-dark">User Name</label>
+                </div>
+                <div style="flex: 1">
+                    <input type="text" name="userName" id="UName" style="border-radius: 8px" value="@TempData["name"]" />
+                </div>
+            </div>
+            <div class="d-flex justify-content-between w-50">
+                <div style="flex: 1">
+                    <label asp-for="UserEmail" for="Email" class="text-dark">Email</label>
+                </div>
+                <div style="flex: 1">
+                    <input type="email" name="email" id="Email" style="border-radius: 8px" />
+                </div>
+            </div>
+            <div class="d-flex justify-content-between w-50">
+                <div style="flex: 1">
+                    <label asp-for="Password" for="password" class="text-dark">Password</label>
+                </div>
+                <div style="flex: 1">
+                    <input type="password" name="password" id="Password" style="border-radius: 8px" />
+                </div>
+            </div>
+            <div class="text-start w-50 d-flex justify-content-between align-items-center">
+                <button type="submit" class="btn btn-dark" id="subtn" >login</button>
+                <a asp-controller="User" asp-action="Register" class="text-center text-decoration-none font-monospace">Register</a>
+            </div>
+        </form>
+        <div class="text-danger">@ViewBag.message</div>
+    </div>
+</div>
+
+
+
+<script>
+    function onSubmitHandler() 
+    {
+        const inputName = document.getElementById("UName").value;
+        localStorage.setItem("UserName", inputName);
+    }
+</script>

@@ -11,8 +11,8 @@ using SampleApplication.Models;
 namespace SampleApplication.Migrations
 {
     [DbContext(typeof(StoreDbContext))]
-    [Migration("20240925000130_AddAmount_ShoopingCarts")]
-    partial class AddAmount_ShoopingCarts
+    [Migration("20240928101324_RemoveListOfProductsFromUserType")]
+    partial class RemoveListOfProductsFromUserType
     {
         /// <inheritdoc />
         protected override void BuildTargetModel(ModelBuilder modelBuilder)

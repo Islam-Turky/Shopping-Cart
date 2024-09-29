@@ -1,4 +1,5 @@
 ﻿using System.ComponentModel.DataAnnotations;
+using System.ComponentModel.DataAnnotations.Schema;
 
 namespace SampleApplication.Models
 {
@@ -6,6 +7,9 @@ namespace SampleApplication.Models
     {
         [Key]
         public string PId { get; set; } = string.Empty!;
+
+        [Required]
+        public User User = null!;
 
         [Required]
         public string ProductName { get; set; } = string.Empty!;

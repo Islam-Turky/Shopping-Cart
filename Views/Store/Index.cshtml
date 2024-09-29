@@ -1,15 +1,14 @@
 ﻿@using SampleApplication.ViewModels
 @model ProductListViewModel
 
-@{
-}
-
+<div class="text-center"><h1 id="welcomeMessage"></h1></div>
+<partial name="_Carousel" />
 <div>
     @if(Model.products is not null)
     {
         @foreach(Product product in Model.products)
         {
-            <div style="background: @product.ProductImg; height:500px; width: auto"></div>
+            <div style="background: @product.ProductImg"></div>
             <ul>
                 <li>@product.ProductName</li>
                 <li>@product.ProductDescription</li>
@@ -18,3 +17,11 @@
         }
     }
 </div>
+
+<script>
+    var name = window.localStorage.getItem("UserName");
+    if(name)
+    {
+        document.getElementById("welcomeMessage").innerHTML = `Welcome back, ${name}!`;
+    }
+</script>
