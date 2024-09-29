@@ -8,5 +8,11 @@
         public DbSet<User> users { get; set; }
         public DbSet<ShoppingCart> shoppingCarts { get; set; }
 
+        protected override void OnModelCreating(ModelBuilder modelBuilder)
+        {
+            modelBuilder.Entity<Category>()
+                .HasIndex(i => i.CategoryName)
+                .IsUnique();
+        }
     }
 }

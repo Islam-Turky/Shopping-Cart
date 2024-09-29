@@ -1,0 +1,18 @@
+﻿@model ProductViewModel
+
+<table class="table" style="width: 50%">
+    <thead>
+        <tr>
+            <th scope="col">Price</th>
+            <th scope="col">Avialbel Amount</th>
+            <th scope="col">Category</th>
+        </tr>
+    </thead>
+    <tbody>
+        <tr>
+            <td>@Model.Product?.ProductPrice</td>
+            <td>@Model.Product?.Amount</td>
+            <td>@Model.Category?.CategoryName</td>
+        </tr>
+    </tbody>
+</table>

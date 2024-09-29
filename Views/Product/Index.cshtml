@@ -1,0 +1,6 @@
+﻿@model List<Product>
+
+@foreach(Product product in Model)
+{
+    <partial name="_ProductCart" model="@product" />
+}

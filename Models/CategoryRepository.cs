@@ -10,15 +10,23 @@
         }
         public void Add(Category category) 
         {
+            category.CategoryId = Guid.NewGuid().ToString();
             _storeDbContext.categories.Add(category);
         }
-        public List<Category>? GetAll() 
+        public List<Category> GetAll() 
         {
-            return _storeDbContext.categories.Select(e => e).ToList();
+            List<Category> result = _storeDbContext.categories.Select(e => e).ToList();
+            return result;
         }
-        public Category? GetById(string cId) 
+        public Category GetById(string cId) 
         {
-            return _storeDbContext.categories.FirstOrDefault(e => e.CategoryId == cId);
+            Category? category = _storeDbContext.categories.FirstOrDefault(e => e.CategoryId == cId);
+            return category is not null ? category : new Category();
+        }
+
+        public void Save()
+        {
+            _storeDbContext.SaveChanges();
         }
     }
 }

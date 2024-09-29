@@ -16,9 +16,10 @@
         {
             return _storedbContext.products.Select(e => e).ToList();
         }
-        public Product? GetOne(string pId) 
+        public Product GetOne(string id) 
         {
-            return _storedbContext.products.FirstOrDefault(e => e.PId == pId);
+            Product? product = _storedbContext.products.FirstOrDefault(el => id == el.PId);
+            return product is not null ? product : new Product();
         }
     }
 }

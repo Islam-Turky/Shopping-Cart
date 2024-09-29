@@ -1,0 +1,6 @@
+﻿@model ProductViewModel
+
+<div class="d-flex flex-column justify-content-center align-items-center align-content-center">
+    <img src="/@Model.Product?.ProductImg" style="height: 500px" class="img-thumbnail" alt="...">
+    <partial name="_ProductDetails" model="@Model"/>
+</div>

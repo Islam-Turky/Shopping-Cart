@@ -18,19 +18,5 @@ namespace SampleApplication.Controllers
             ProductListViewModel model = new ProductListViewModel { products = products };
             return View(model);
         }
-
-        [HttpGet]
-        public IActionResult Index(string? id)
-        {
-            List<Product>? products = _productRepository.GetAll();
-            string? userName = TempData["userName"] as string;
-            ProductListViewModel model = new ProductListViewModel { products = products, param = userName };
-            return View(model);
-        }
-
-        public IActionResult AddProduct() 
-        {
-            return View();
-        }
     }
 }

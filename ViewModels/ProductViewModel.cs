@@ -2,10 +2,9 @@
 
 namespace SampleApplication.ViewModels
 {
-    public class ProductListViewModel
+    public class ProductViewModel
     {
-        public List<Product>? products;
+        public Product? Product { get; set; }
         public Category? Category { get; set; }
-        //public string? param { get; set; }
     }
 }

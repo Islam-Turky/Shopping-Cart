@@ -2,7 +2,7 @@
 
 namespace SampleApplication.Models
 {
-    public class UserRepository : IUserRepository
+    public class UserRepository : IUserRepository, ICommonMethodRepository
     {
         private readonly StoreDbContext _storeDbContext;
 
@@ -31,6 +31,11 @@ namespace SampleApplication.Models
         {
             User? user = _storeDbContext.users.FirstOrDefault(e => e.UserEmail == email && e.Password == password);
             return user is null ? new User { } : user;
+        }
+
+        public void Save() 
+        {
+            _storeDbContext.SaveChanges();
         }
     }
 }
