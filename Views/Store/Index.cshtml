@@ -1,19 +1,21 @@
 ﻿@using SampleApplication.ViewModels
 @model ProductListViewModel
 
-<div class="text-center"><h1 id="welcomeMessage"></h1></div>
-<partial name="_Carousel" />
-<div>
+<div class="row bg-dark p-3" style="border-radius: 10px">
+    <div class="col-1"></div>
+    <div class="col-10">
+        <div class="row">
+            <partial name="_Carousel" />
+        </div>
+    </div>
+    <div class="col-1"></div>
+</div>
+<div class="container m-2">
     @if(Model.products is not null)
     {
         @foreach(Product product in Model.products)
         {
-            <div style="background: @product.ProductImg"></div>
-            <ul>
-                <li>@product.ProductName</li>
-                <li>@product.ProductDescription</li>
-                <li>@product.ProductPrice</li>
-            </ul>
+            <partial name="_ProductCart" model="@product" />
         }
     }
 </div>

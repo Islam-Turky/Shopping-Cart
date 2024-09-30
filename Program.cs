@@ -1,19 +1,24 @@
+using Microsoft.AspNetCore.Identity;
 using SampleApplication.Models;
+using Microsoft.EntityFrameworkCore;
 
 var builder = WebApplication.CreateBuilder(args);
+var connectionString = builder.Configuration.GetConnectionString("StoreConectionString") ?? throw new InvalidOperationException("Connection string 'StoreDbContextConnection' not found.");
 
 // Add services to the container.
+builder.Services.AddDbContext<StoreDbContext>(options =>
+{
+    options.UseSqlServer(connectionString);
+});
+
+builder.Services.AddDefaultIdentity<IdentityUser>()
+                .AddEntityFrameworkStores<StoreDbContext>();
+
 builder.Services.AddScoped<IProductRepository, ProductRepository>();
 builder.Services.AddScoped<ICategoryRepository, CategoryRepository>();
 builder.Services.AddScoped<IUserRepository, UserRepository>();
 builder.Services.AddControllersWithViews();
 
-builder.Services.AddDbContext<StoreDbContext>(options =>
-{
-    options.UseSqlServer(
-        builder.Configuration["ConnectionStrings:StoreConectionString"]
-    );
-});
 
 var app = builder.Build();
 
@@ -34,7 +39,10 @@ if (app.Environment.IsDevelopment())
 
 app.UseRouting();
 
+app.UseAuthentication();
 app.UseAuthorization();
+
+app.MapRazorPages();
 
 app.MapControllerRoute(
     name: "default",

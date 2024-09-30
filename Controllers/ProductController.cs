@@ -1,9 +1,11 @@
-﻿using Microsoft.AspNetCore.Mvc;
+﻿using Microsoft.AspNetCore.Authorization;
+using Microsoft.AspNetCore.Mvc;
 using SampleApplication.Models;
 using SampleApplication.ViewModels;
 
 namespace SampleApplication.Controllers
 {
+    [Authorize]
     public class ProductController : Controller
     {
         private readonly IProductRepository _productRepositiory;

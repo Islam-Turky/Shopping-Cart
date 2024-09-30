@@ -17,7 +17,7 @@
                         aria-expanded="false" aria-label="Toggle navigation">
                     <span class="navbar-toggler-icon"></span>
                 </button>
-                <div class="navbar-collapse collapse d-sm-inline-flex justify-content-between align-content-center" style="direction: rtl">
+                @* <div class="navbar-collapse collapse d-sm-inline-flex justify-content-between align-content-center" style="direction: rtl">
                     <ul class="navbar-nav flex-grow-1 gap-5">
                         <li class="nav-item">
                             <a class="nav-link text-white" asp-area="" asp-controller="User" asp-action="Login" style="font-size: 20px; font-weight: 600" id="log">Login</a>
@@ -29,20 +29,17 @@
                             </li>
                         }
                     </ul>
-                </div>
+                </div> *@
+                <partial name="_LoginPartial" />
             </div>
         </nav>
     </header>
     <div class="container">
-        <div class="row">
-            <div class="col-md-1">
-            </div>
-            <div class="col-md-10">
+        <main role="main">
+            @* <div class="w-75"> *@
                 @RenderBody()
-            </div>
-            <div class="col-md-1">
-            </div>
-        </div>
+            @* </div> *@
+        </main>
     </div>
 
     <footer class="border-top footer text-muted bg-dark">
@@ -53,7 +50,7 @@
     <script src="~/lib/jquery/dist/jquery.min.js"></script>
     <script src="~/lib/bootstrap/dist/js/bootstrap.bundle.min.js"></script>
     <script src="~/js/site.js" asp-append-version="true"></script>
-    <script>
+   @*  <script>
         var uname = window.localStorage.getItem("UserName");
         var log = document.getElementById("log");
         if(uname != null)
@@ -69,7 +66,7 @@
         {
             log.innerHTML = "Login";
         }
-    </script>
+    </script> *@
     @await RenderSectionAsync("Scripts", required: false)
 </body>
 </html>
