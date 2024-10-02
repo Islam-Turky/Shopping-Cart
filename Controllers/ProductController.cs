@@ -5,7 +5,6 @@ using SampleApplication.ViewModels;
 
 namespace SampleApplication.Controllers
 {
-    [Authorize]
     public class ProductController : Controller
     {
         private readonly IProductRepository _productRepositiory;
@@ -17,17 +16,19 @@ namespace SampleApplication.Controllers
             _categoryRepositiory = categoryRepositiory;
         }
 
+        [Authorize]
         public IActionResult Index()
         {
-            List<Product>? products =  _productRepositiory.GetAll();
-            return View(products is not null ? products : new Product() { ProductCategory = null, Amount = 0, PId ="none" });
+            IEnumerable<Product>? products =  _productRepositiory.GetAll();
+            return View(products is not null ? products : new Product() { Category = null, Amount = 0, PId ="none" });
         }
 
+        [Authorize]
         public IActionResult Show(string id)
         {
             Product? product = _productRepositiory.GetOne(id);
-            string? cId = product?.ProductCategory?.ToString();
-            Category? category = _categoryRepositiory.GetById(cId);
+            //Category? category = _categoryRepositiory.GetById(product.Category?.CategoryId);
+            Category? category = _categoryRepositiory.GetAll().FirstOrDefault(e => e.CategoryId == product.Category.CategoryId);
             ProductViewModel productViewModel = new ProductViewModel { Product = product, Category = category };
             return View(productViewModel);
         }

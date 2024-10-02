@@ -1,8 +1,10 @@
-﻿namespace SampleApplication.Models
+﻿using Microsoft.AspNetCore.Identity;
+
+namespace SampleApplication.Models
 {
     public interface IShoppingCartRepository
     {
         public void Add(ShoppingCart shoppingCart);
-        public List<ShoppingCart>? GetAll(User user);
+        public IQueryable<ShoppingCart> GetAllForUser(ShoppingCart cart);
     }
 }

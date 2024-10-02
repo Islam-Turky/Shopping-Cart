@@ -3,7 +3,8 @@ using Microsoft.AspNetCore.Mvc;
 
 namespace SampleApplication.Controllers
 {
-    [Authorize]
+    [Authorize(Roles = "Customer")]
+    [Authorize(Roles = "Admin")]
     public class ShoppingCartController : Controller
     {
         public IActionResult Index()

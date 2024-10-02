@@ -12,9 +12,9 @@
         {
             _storedbContext.products.Add(product);
         }
-        public List<Product>? GetAll() 
+        public IEnumerable<Product>? GetAll() 
         {
-            return _storedbContext.products.Select(e => e).ToList();
+            return _storedbContext.products.Select(e => e);
         }
         public Product GetOne(string id) 
         {

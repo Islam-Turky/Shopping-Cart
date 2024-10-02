@@ -14,9 +14,9 @@
             _storeDbContext.shoppingCarts.Add(cart);
         }
 
-        public List<ShoppingCart>? GetAll(User u) 
+        public IQueryable<ShoppingCart> GetAllForUser(ShoppingCart cart) 
         {
-            return _storeDbContext.shoppingCarts.Where(e => e.User == u).ToList();
+            return _storeDbContext.shoppingCarts.Where(e => e.UserIdentityName == cart.UserIdentityName);
         }
     }
 }

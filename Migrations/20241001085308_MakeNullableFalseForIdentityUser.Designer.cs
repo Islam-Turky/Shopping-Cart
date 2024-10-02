@@ -3,6 +3,7 @@ using System;
 using Microsoft.EntityFrameworkCore;
 using Microsoft.EntityFrameworkCore.Infrastructure;
 using Microsoft.EntityFrameworkCore.Metadata;
+using Microsoft.EntityFrameworkCore.Migrations;
 using Microsoft.EntityFrameworkCore.Storage.ValueConversion;
 using SampleApplication.Models;
 
@@ -11,9 +12,11 @@ using SampleApplication.Models;
 namespace SampleApplication.Migrations
 {
     [DbContext(typeof(StoreDbContext))]
-    partial class StoreDbContextModelSnapshot : ModelSnapshot
+    [Migration("20241001085308_MakeNullableFalseForIdentityUser")]
+    partial class MakeNullableFalseForIdentityUser
     {
-        protected override void BuildModel(ModelBuilder modelBuilder)
+        /// <inheritdoc />
+        protected override void BuildTargetModel(ModelBuilder modelBuilder)
         {
 #pragma warning disable 612, 618
             modelBuilder
@@ -252,7 +255,10 @@ namespace SampleApplication.Migrations
                     b.Property<int>("Amount")
                         .HasColumnType("int");
 
-                    b.Property<string>("CategoryId")
+                    b.Property<string>("IdentityUser")
+                        .HasColumnType("nvarchar(450)");
+
+                    b.Property<string>("ProductCategoryCategoryId")
                         .IsRequired()
                         .HasColumnType("nvarchar(450)");
 
@@ -274,7 +280,9 @@ namespace SampleApplication.Migrations
 
                     b.HasKey("PId");
 
-                    b.HasIndex("CategoryId");
+                    b.HasIndex("IdentityUser");
+
+                    b.HasIndex("ProductCategoryCategoryId");
 
                     b.ToTable("products");
                 });
@@ -354,13 +362,19 @@ namespace SampleApplication.Migrations
 
             modelBuilder.Entity("SampleApplication.Models.Product", b =>
                 {
-                    b.HasOne("SampleApplication.Models.Category", "Category")
+                    b.HasOne("Microsoft.AspNetCore.Identity.IdentityUser", "User")
                         .WithMany()
-                        .HasForeignKey("CategoryId")
+                        .HasForeignKey("IdentityUser");
+
+                    b.HasOne("SampleApplication.Models.Category", "ProductCategory")
+                        .WithMany()
+                        .HasForeignKey("ProductCategoryCategoryId")
                         .OnDelete(DeleteBehavior.Cascade)
                         .IsRequired();
 
-                    b.Navigation("Category");
+                    b.Navigation("ProductCategory");
+
+                    b.Navigation("User");
                 });
 
             modelBuilder.Entity("SampleApplication.Models.ShoppingCart", b =>

@@ -4,7 +4,6 @@ using SampleApplication.Models;
 
 namespace SampleApplication.Controllers
 {
-    [Authorize]
     public class CategoryController : Controller
     {
         private readonly ICategoryRepository _categoryRepository;
@@ -13,12 +12,14 @@ namespace SampleApplication.Controllers
             _categoryRepository = categoryRepository;
         }
 
+        [Authorize]
         public IActionResult Index()
         {
-            List<Category>? categories = _categoryRepository.GetAll();
+            IEnumerable<Category>? categories = _categoryRepository.GetAll();
             return View(categories);
         }
 
+        [Authorize(Roles = "Admin,Trader")]
         public IActionResult Create()
         {
             return View();

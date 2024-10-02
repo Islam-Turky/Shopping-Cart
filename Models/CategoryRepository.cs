@@ -13,9 +13,9 @@
             category.CategoryId = Guid.NewGuid().ToString();
             _storeDbContext.categories.Add(category);
         }
-        public List<Category> GetAll() 
+        public IEnumerable<Category> GetAll() 
         {
-            List<Category> result = _storeDbContext.categories.Select(e => e).ToList();
+            IEnumerable<Category> result = _storeDbContext.categories.Select(e => e).ToList();
             return result;
         }
         public Category GetById(string cId) 

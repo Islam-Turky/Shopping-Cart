@@ -3,6 +3,7 @@ using System;
 using Microsoft.EntityFrameworkCore;
 using Microsoft.EntityFrameworkCore.Infrastructure;
 using Microsoft.EntityFrameworkCore.Metadata;
+using Microsoft.EntityFrameworkCore.Migrations;
 using Microsoft.EntityFrameworkCore.Storage.ValueConversion;
 using SampleApplication.Models;
 
@@ -11,9 +12,11 @@ using SampleApplication.Models;
 namespace SampleApplication.Migrations
 {
     [DbContext(typeof(StoreDbContext))]
-    partial class StoreDbContextModelSnapshot : ModelSnapshot
+    [Migration("20240930224552_RemoveUserIdentity")]
+    partial class RemoveUserIdentity
     {
-        protected override void BuildModel(ModelBuilder modelBuilder)
+        /// <inheritdoc />
+        protected override void BuildTargetModel(ModelBuilder modelBuilder)
         {
 #pragma warning disable 612, 618
             modelBuilder
@@ -252,7 +255,7 @@ namespace SampleApplication.Migrations
                     b.Property<int>("Amount")
                         .HasColumnType("int");
 
-                    b.Property<string>("CategoryId")
+                    b.Property<string>("ProductCategoryCategoryId")
                         .IsRequired()
                         .HasColumnType("nvarchar(450)");
 
@@ -274,7 +277,7 @@ namespace SampleApplication.Migrations
 
                     b.HasKey("PId");
 
-                    b.HasIndex("CategoryId");
+                    b.HasIndex("ProductCategoryCategoryId");
 
                     b.ToTable("products");
                 });
@@ -288,7 +291,7 @@ namespace SampleApplication.Migrations
                         .IsRequired()
                         .HasColumnType("nvarchar(450)");
 
-                    b.Property<string>("UserIdentityNameId")
+                    b.Property<string>("UserId")
                         .IsRequired()
                         .HasColumnType("nvarchar(450)");
 
@@ -296,9 +299,31 @@ namespace SampleApplication.Migrations
 
                     b.HasIndex("ProductPId");
 
-                    b.HasIndex("UserIdentityNameId");
+                    b.HasIndex("UserId");
 
                     b.ToTable("shoppingCarts");
+                });
+
+            modelBuilder.Entity("SampleApplication.Models.User", b =>
+                {
+                    b.Property<string>("UserId")
+                        .HasColumnType("nvarchar(450)");
+
+                    b.Property<string>("Password")
+                        .IsRequired()
+                        .HasColumnType("nvarchar(max)");
+
+                    b.Property<string>("UserEmail")
+                        .IsRequired()
+                        .HasColumnType("nvarchar(max)");
+
+                    b.Property<string>("UserName")
+                        .IsRequired()
+                        .HasColumnType("nvarchar(max)");
+
+                    b.HasKey("UserId");
+
+                    b.ToTable("users");
                 });
 
             modelBuilder.Entity("Microsoft.AspNetCore.Identity.IdentityRoleClaim<string>", b =>
@@ -354,13 +379,13 @@ namespace SampleApplication.Migrations
 
             modelBuilder.Entity("SampleApplication.Models.Product", b =>
                 {
-                    b.HasOne("SampleApplication.Models.Category", "Category")
+                    b.HasOne("SampleApplication.Models.Category", "ProductCategory")
                         .WithMany()
-                        .HasForeignKey("CategoryId")
+                        .HasForeignKey("ProductCategoryCategoryId")
                         .OnDelete(DeleteBehavior.Cascade)
                         .IsRequired();
 
-                    b.Navigation("Category");
+                    b.Navigation("ProductCategory");
                 });
 
             modelBuilder.Entity("SampleApplication.Models.ShoppingCart", b =>
@@ -371,15 +396,15 @@ namespace SampleApplication.Migrations
                         .OnDelete(DeleteBehavior.Cascade)
                         .IsRequired();
 
-                    b.HasOne("Microsoft.AspNetCore.Identity.IdentityUser", "UserIdentityName")
+                    b.HasOne("SampleApplication.Models.User", "User")
                         .WithMany()
-                        .HasForeignKey("UserIdentityNameId")
+                        .HasForeignKey("UserId")
                         .OnDelete(DeleteBehavior.Cascade)
                         .IsRequired();
 
                     b.Navigation("Product");
 
-                    b.Navigation("UserIdentityName");
+                    b.Navigation("User");
                 });
 #pragma warning restore 612, 618
         }

@@ -12,6 +12,6 @@ namespace SampleApplication.Models
         public Product Product { get; set; } = null!;
 
         [Required]
-        public User User { get; set; } = null!;
+        public IdentityUser? UserIdentityName { get; set; }
     }
 }

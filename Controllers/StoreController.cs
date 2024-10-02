@@ -14,7 +14,7 @@ namespace SampleApplication.Controllers
         }
         public IActionResult Index()
         {
-            List<Product>? products = _productRepository.GetAll();
+            IEnumerable<Product>? products = _productRepository.GetAll();
             ProductListViewModel model = new ProductListViewModel { products = products };
             return View(model);
         }

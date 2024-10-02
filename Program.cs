@@ -12,11 +12,12 @@ builder.Services.AddDbContext<StoreDbContext>(options =>
 });
 
 builder.Services.AddDefaultIdentity<IdentityUser>()
+                .AddRoles<IdentityRole>()
                 .AddEntityFrameworkStores<StoreDbContext>();
 
+builder.Services.AddRazorPages();
 builder.Services.AddScoped<IProductRepository, ProductRepository>();
 builder.Services.AddScoped<ICategoryRepository, CategoryRepository>();
-builder.Services.AddScoped<IUserRepository, UserRepository>();
 builder.Services.AddControllersWithViews();
 
 
@@ -48,4 +49,5 @@ app.MapControllerRoute(
     name: "default",
     pattern: "{controller=Store}/{action=Index}/{id?}");
 
+RolesSeed.Seed(app);
 app.Run();
