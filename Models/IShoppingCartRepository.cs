@@ -2,9 +2,8 @@
 
 namespace SampleApplication.Models
 {
-    public interface IShoppingCartRepository
+    public interface IShoppingCartRepository : IRepository<ShoppingCart>
     {
-        public void Add(ShoppingCart shoppingCart);
         public IQueryable<ShoppingCart> GetAllForUser(ShoppingCart cart);
     }
 }

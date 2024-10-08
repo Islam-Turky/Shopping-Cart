@@ -17,7 +17,7 @@ namespace SampleApplication.Models
         public string ProductDescription { get; set; } = string.Empty;
 
         [Required]
-        public Category? Category { get; set; }
+        public string Category { get; set; } = string.Empty;
 
         [Required]
         public string ProductPrice { get; set; } = string.Empty!;

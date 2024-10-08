@@ -1,6 +1,11 @@
-﻿@model List<Category>
+﻿@model IEnumerable<Category>
 
 <div class="d-flex justify-content-between flex-wrap gap-3 align-items-center align-content-center">
+    <ul class="nav justify-content-center">
+        <li class="nav-item">
+            <a class="nav-link active" asp-controller="Category" asp-action="Create">Create New Category</a>
+        </li>
+    </ul>
     @if(Model is not null)
     {
         <h1 class="text-center w-100">Available Categories</h1>
@@ -10,6 +15,10 @@
                 <div class="card-body">
                     <h5 class="card-title">@category.CategoryName</h5>
                     <p class="card-text">@category.CategoryDescription</p>
+                </div>
+                <div class="p-3 text-center">
+                    <a asp-controller="Category" asp-action="Remove" asp-route-id="@category.CategoryId" class="btn btn-primary">Delete</a>
+                    <a asp-controller="Category" asp-action="Edit" asp-route-id="@category.CategoryId" class="btn btn-primary">Edit</a>
                 </div>
             </div>
         }

@@ -12,7 +12,7 @@
         <tr>
             <td>@Model.Product?.ProductPrice LE</td>
             <td>@Model.Product?.Amount</td>
-            <td>@Model.Category.CategoryName</td>
+            <td>@Model?.Product?.Category</td>
         </tr>
     </tbody>
 </table>

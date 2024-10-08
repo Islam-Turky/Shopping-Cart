@@ -5,6 +5,6 @@ namespace SampleApplication.ViewModels
     public class ProductViewModel
     {
         public Product? Product { get; set; }
-        public Category? Category { get; set; }
+        public IEnumerable<Category>? Category { get; set; }
     }
 }

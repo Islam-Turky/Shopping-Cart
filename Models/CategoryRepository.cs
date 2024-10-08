@@ -8,7 +8,7 @@
         {
             _storeDbContext = storeDbContext;
         }
-        public void Add(Category category) 
+        public void Create(Category category) 
         {
             category.CategoryId = Guid.NewGuid().ToString();
             _storeDbContext.categories.Add(category);
@@ -18,15 +18,27 @@
             IEnumerable<Category> result = _storeDbContext.categories.Select(e => e).ToList();
             return result;
         }
-        public Category GetById(string cId) 
+        public Category GetOne(string id)
         {
-            Category? category = _storeDbContext.categories.FirstOrDefault(e => e.CategoryId == cId);
-            return category is not null ? category : new Category();
+            Category? category = _storeDbContext.categories.FirstOrDefault(e => e.CategoryId == id);
+            return category is not null ? category : new Category() { };
         }
 
-        public void Save()
+        public void Edit( string id,Category newCategory) 
         {
-            _storeDbContext.SaveChanges();
+            //Category category = GetOne(id);
+            //category.CategoryName = newCategory.CategoryName;
+            //category.CategoryDescription = newCategory.CategoryDescription;
+        }
+
+        public void Delete(string id)
+        {
+            Category category = GetOne(id);
+            _storeDbContext.categories.Remove(category);
+        }
+        public int Save()
+        {
+            return _storeDbContext.SaveChanges();
         }
     }
 }

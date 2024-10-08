@@ -1,9 +1,7 @@
 ﻿namespace SampleApplication.Models
 {
-    public interface ICategoryRepository : ICommonMethodRepository
+    public interface ICategoryRepository : IRepository<Category>
     {
-        void Add(Category category);
-        IEnumerable<Category>? GetAll();
-        Category? GetById(string cid);
+     
     }
 }

@@ -6,9 +6,9 @@ namespace SampleApplication.Controllers
 {
     public class StoreController : Controller
     {
-        private readonly IProductRepository _productRepository;
+        private readonly IRepository<Product> _productRepository;
 
-        public StoreController(IProductRepository productRepository)
+        public StoreController(IRepository<Product> productRepository)
         {
             _productRepository = productRepository;
         }

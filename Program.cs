@@ -1,6 +1,7 @@
 using Microsoft.AspNetCore.Identity;
 using SampleApplication.Models;
 using Microsoft.EntityFrameworkCore;
+using SampleApplication.Middlewares;
 
 var builder = WebApplication.CreateBuilder(args);
 var connectionString = builder.Configuration.GetConnectionString("StoreConectionString") ?? throw new InvalidOperationException("Connection string 'StoreDbContextConnection' not found.");
@@ -16,8 +17,7 @@ builder.Services.AddDefaultIdentity<IdentityUser>()
                 .AddEntityFrameworkStores<StoreDbContext>();
 
 builder.Services.AddRazorPages();
-builder.Services.AddScoped<IProductRepository, ProductRepository>();
-builder.Services.AddScoped<ICategoryRepository, CategoryRepository>();
+builder.Services.AddScoped(typeof(IRepository<>), typeof(Repository<>));
 builder.Services.AddControllersWithViews();
 
 
@@ -50,4 +50,5 @@ app.MapControllerRoute(
     pattern: "{controller=Store}/{action=Index}/{id?}");
 
 RolesSeed.Seed(app);
+//app.UseHelloWorld();
 app.Run();

@@ -1,0 +1,8 @@
+﻿@model CreateProductModel
+
+<select class="form-select" aria-label="Default select example">
+    @foreach(Category category in Model.categories)
+    {
+        <option value=@category.CategoryId>@category.CategoryName</option>
+    }
+</select>
