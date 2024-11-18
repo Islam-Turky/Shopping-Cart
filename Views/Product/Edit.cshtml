@@ -6,19 +6,19 @@
     <form asp-action="Edit" class="h-100 w-100 d-flex justify-content-between flex-column gap-4">
         <div class="row">
             <div class="col">
-                <input type="text" asp-for="ProductName" class="form-control" placeholder="@ViewBag.Product.ProductName">
+                <input type="text" asp-for="ProductName" class="form-control" value="@ViewBag.Product.ProductName" placeholder="Product Name">
                 <span asp-validation-for="ProductName" class="text-danger"></span>
             </div>
         </div>
         <div class="row">
             <div class="col">
-                <input type="text" asp-for="Amount" class="form-control" placeholder="@ViewBag.Product.Amount">
+                <input type="text" asp-for="Amount" class="form-control" value="@ViewBag.Product.Amount" placeholder="Amount">
                 <span asp-validation-for="Amount" class="text-danger"></span>
             </div>
         </div>
         <div class="row">
             <div class="col">
-                <input type="text" asp-for="ProductPrice" class="form-control" placeholder="@ViewBag.Product.ProductPrice">
+                <input type="text" asp-for="ProductPrice" class="form-control" value="@ViewBag.Product.ProductPrice" placeholder="Price">
                 <span asp-validation-for="ProductPrice" class="text-danger"></span>
             </div>
         </div>
@@ -34,12 +34,12 @@
         </div>
         <div class="row">
             <div class="col">
-                <input type="text" asp-for="ProductImg" class="form-control" placeholder="@ViewBag.Product.ProductImg">
+                <input type="text" asp-for="ProductImg" class="form-control" value="@ViewBag.Product.ProductImg" placeholder="Product Image">
                 <span asp-validation-for="ProductImg" class="text-danger"></span>
             </div>
         </div>
         <div class="mb-3">
-            <textarea class="form-control" placeholder="@ViewBag.Product.ProductDescription" asp-for="ProductDescription" id="exampleFormControlTextarea1" rows="3"></textarea>
+            <textarea class="form-control" title="@ViewBag.Product.ProductDescription" placeholder="Product Description" asp-for="ProductDescription" id="exampleFormControlTextarea1" rows="3"></textarea>
             <span asp-validation-for="ProductDescription" class="text-danger"></span>
         </div>
         <div class="form-group">

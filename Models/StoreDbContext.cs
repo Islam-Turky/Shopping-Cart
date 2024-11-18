@@ -8,6 +8,7 @@ namespace SampleApplication.Models
         public DbSet<Product> products { get; set; }
         public DbSet<Category> categories { get; set; }
         public DbSet<ShoppingCart> shoppingCarts { get; set; }
+        public DbSet<Paymob> payments { get; set; }
 
         protected override void OnModelCreating(ModelBuilder modelBuilder)
         {

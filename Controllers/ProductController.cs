@@ -1,4 +1,5 @@
 ﻿using Microsoft.AspNetCore.Authorization;
+using Microsoft.AspNetCore.Identity;
 using Microsoft.AspNetCore.Mvc;
 using SampleApplication.Models;
 using SampleApplication.ViewModels;
@@ -10,11 +11,15 @@ namespace SampleApplication.Controllers
     {
         private readonly IRepository<Product> _productRepository;
         private readonly IRepository<Category> _CategoryRepo;
-
-        public ProductController(IRepository<Product> productRepository, IRepository<Category> categoryRepo)
+        private readonly IPaymobManager _paymobManager;
+        public ProductController(IRepository<Product> productRepository,
+            IRepository<Category> categoryRepo,
+            IPaymobManager paymobManager
+            )
         {
             _productRepository = productRepository;
             _CategoryRepo = categoryRepo;
+            _paymobManager = paymobManager;
         }
 
         public IActionResult Index()
@@ -23,10 +28,13 @@ namespace SampleApplication.Controllers
             return View(products);
         }
 
-        public IActionResult Show(string id)
+        public async Task<IActionResult> Show(string id)
         {
             Product? product = _productRepository.GetOne(id);
             ProductViewModel productViewModel = new ProductViewModel { Product = product, Category = _CategoryRepo.GetAll() };
+            bool priceToInt = Int32.TryParse(product.ProductPrice, out int price);
+            var paymentToken = await _paymobManager.GetPaymentKey(price, product.Amount,product.ProductName,product.ProductDescription,"islam@gmail.com", "EGP");
+            ViewBag.PaymentToken = paymentToken;
             return View(productViewModel);
         }
 
@@ -100,6 +108,12 @@ namespace SampleApplication.Controllers
             _productRepository.Delete(id);
             _productRepository.Save();
             return RedirectToAction("Index");
+        }
+
+        public IActionResult Pay(string id) 
+        {
+            Product? product = _productRepository.GetOne(id);
+            return View(product);
         }
     }
 }

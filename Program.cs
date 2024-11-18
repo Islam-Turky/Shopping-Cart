@@ -1,7 +1,5 @@
 using Microsoft.AspNetCore.Identity;
 using SampleApplication.Models;
-using Microsoft.EntityFrameworkCore;
-using SampleApplication.Middlewares;
 
 var builder = WebApplication.CreateBuilder(args);
 var connectionString = builder.Configuration.GetConnectionString("StoreConectionString") ?? throw new InvalidOperationException("Connection string 'StoreDbContextConnection' not found.");
@@ -17,6 +15,8 @@ builder.Services.AddDefaultIdentity<IdentityUser>()
                 .AddEntityFrameworkStores<StoreDbContext>();
 
 builder.Services.AddRazorPages();
+builder.Services.AddHttpClient();
+builder.Services.AddScoped<IPaymobManager, PaymobManager>();
 builder.Services.AddScoped(typeof(IRepository<>), typeof(Repository<>));
 builder.Services.AddControllersWithViews();
 
